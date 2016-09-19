@@ -1,0 +1,58 @@
+﻿@model PagedList.IPagedList<SunIQ.Models.Inverter_Files_Data>
+
+@{
+    ViewBag.Title = "Index";
+}
+<br />
+
+
+
+
+
+
+
+    @*@using (Ajax.BeginForm(new AjaxOptions { HttpMethod = "get", InsertionMode = InsertionMode.Replace, UpdateTargetId = "invertid" }))
+        {
+
+            <input type="search" name="searchTerm"/>
+            <input type="submit" value="Search by Serial No" />
+
+        }*@
+
+
+
+    <nav class="navbar navbar-default" role="navigation">
+        <div class="container">
+
+
+            <div class="navbar-collapse collapse" id="navbar-collapsible">
+
+                <ul class="nav navbar-nav navbar-left">
+                    <li><a href="#">Inverter Eff Data</a></li>
+
+                </ul>
+
+                <div class="navbar-form navbar-right btn-group">
+                    @*<button type="button" class="btn btn-default">Button 1</button>*@
+
+                </div>
+
+                <form class="navbar-form" method="get" action="@Url.Action("Index")" data-sal-ajax="true" data-sal-target="#invertid">
+                    <div class="form-group" style="display:inline;">
+                        <div class="input-group">
+                            <span>
+                                <input name="searchTerm" type="text" class="form-control" data-sal-autocomplete="@Url.Action("Autocomplete")"><button class="btn btn-default" type="submit" id="addressSearch">
+                                    <span class="glyphicon glyphicon-search"></span>
+                                </button>
+                            </span>
+                        </div>
+                    </div>
+                </form>
+
+            </div>
+
+        </div>
+    </nav>
+
+    @Html.Partial("_Inverter_Data", Model)
+

@@ -1,0 +1,56 @@
+﻿@model SunIQ.Models.Calculation_Setup
+
+@{
+    ViewBag.Title = "Delete";
+}
+<br />
+<h4>Are you sure you want to delete @Html.DisplayFor(model => model.Setup_Name) setup ?</h4>
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-actions no-color">
+        <input type="submit" value="Delete" class="btn btn-danger" /> |
+        @Html.ActionLink("Back to List", "Index")
+    </div>
+}
+<div>
+
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Setup_Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Setup_Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Rated_Power)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Rated_Power)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Efficiency)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Efficiency)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Efficiency_Plus_Minus)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Efficiency_Plus_Minus)
+        </dd>
+
+    </dl>
+
+
+</div>

@@ -1,0 +1,66 @@
+﻿@model SunIQ.Models.Inverter_Files_Data
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Inverter_Files_Data</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Inverter.Serial_Number)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Inverter.Serial_Number)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ETUK)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ETUK)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ETPK)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ETPK)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.STUK)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.STUK)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.STPK)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.STPK)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.SFPK)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SFPK)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

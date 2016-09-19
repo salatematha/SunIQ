@@ -1,0 +1,58 @@
+﻿@model SunIQ.Models.Setup_Percentage_Range
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Setup_Percentage_Range</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Calculation_Setup.Setup_Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Calculation_Setup.Setup_Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Percentage)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Percentage)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Min_Percentage_Range)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Min_Percentage_Range)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Max_Percentage_Range)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Max_Percentage_Range)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Weightage)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Weightage)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Setup_PercentageId }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

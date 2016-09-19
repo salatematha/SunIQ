@@ -1,0 +1,57 @@
+﻿@model IEnumerable<SunIQ.Models.Setup_Percentage_Range>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+</br>
+
+<p>
+    @Html.ActionLink("Add range for setup", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Calculation_Setup.Setup_Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Percentage)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Min_Percentage_Range)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Max_Percentage_Range)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Weightage)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Calculation_Setup.Setup_Name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Percentage)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Min_Percentage_Range)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Max_Percentage_Range)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Weightage)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.Setup_PercentageId }) |
+            @*@Html.ActionLink("Details", "Details", new { id=item.Setup_PercentageId }) |*@
+            @Html.ActionLink("Delete", "Delete", new { id=item.Setup_PercentageId })
+        </td>
+    </tr>
+}
+
+</table>

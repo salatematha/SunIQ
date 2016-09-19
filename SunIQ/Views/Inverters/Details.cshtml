@@ -1,0 +1,191 @@
+﻿@model SunIQ.Models.Inverter
+
+@{
+    ViewBag.Title = "Details";
+}
+<script src="~/Scripts/Chart.bundle.js"></script>
+<br />
+<h4>Details of @Html.DisplayFor(model => model.Serial_Number) Inverter</h4>
+
+<div>
+
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Serial_Number)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Serial_Number)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.File_Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.File_Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Last_Modified)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Last_Modified)
+        </dd>
+
+    </dl>
+</div>
+
+<div id="curve_chart" style="width:100%;height:600px;"></div>
+
+
+@*<div>
+    <div style="width:100%;">
+        <canvas id="canvas"></canvas>
+    </div>
+    <br>
+    <br>
+
+    <script>
+
+                var randomScalingFactor = function () {
+                    return Math.round(Math.random() * 100);
+                    //return 0;
+                };
+                var randomColorFactor = function () {
+                    return Math.round(Math.random() * 255);
+                };
+                var randomColor = function (opacity) {
+                    return 'rgba(' + randomColorFactor() + ',' + randomColorFactor() + ',' + randomColorFactor() + ',' + (opacity || '.3') + ')';
+                };
+
+                var config = {
+                    type: 'line',
+                    data: {
+                        labels: @Html.Raw(Json.Encode(Model.inverter_files_datas.Where(r=>r.SFPK/r.ETPK>0.8 && r.SFPK / r.ETPK <1).OrderBy(r=>r.Serial_No).Select(r => ((r.Serial_No-38246)/35)%35==0 ? (r.Serial_No-38246)/35+"" : "").ToList())),
+                        datasets: [{
+                            label: "Efficiency",
+                            data: @Html.Raw(Json.Encode(Model.inverter_files_datas.Where(r => r.SFPK / r.ETPK > 0.8 && r.SFPK / r.ETPK <1).OrderBy(r => r.Serial_No).Select(r => r.SFPK/r.ETPK).ToList())),
+                            fill: false,
+                            borderDash: [5, 5],
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        title: {
+                            display: true,
+                        },
+                        tooltips: {
+                            mode: 'label',
+                            callbacks: {
+                                // beforeTitle: function() {
+                                //     return '...beforeTitle';
+                                // },
+                                // afterTitle: function() {
+                                //     return '...afterTitle';
+                                // },
+                                // beforeBody: function() {
+                                //     return '...beforeBody';
+                                // },
+                                // afterBody: function() {
+                                //     return '...afterBody';
+                                // },
+                                // beforeFooter: function() {
+                                //     return '...beforeFooter';
+                                // },
+                                // footer: function() {
+                                //     return 'Footer';
+                                // },
+                                // afterFooter: function() {
+                                //     return '...afterFooter';
+                                // },
+                            }
+                        },
+                        hover: {
+                            mode: 'dataset'
+                        },
+                     
+
+                        scales: {
+                            xAxes: [{
+                                display: true,
+                                
+                                scaleLabel: {
+                                    display: true,
+                                    labelString: 'Range',
+
+                                }
+                            }],
+                            yAxes: [{
+                                display: true,
+                                scaleLabel: {
+                                    display: true,
+                                    labelString: 'Efficiency'
+                                }
+                            }]
+                        }
+                    }
+                };
+
+                $.each(config.data.datasets, function (i, dataset) {
+                    dataset.borderColor = randomColor(0.4);
+                    dataset.backgroundColor = randomColor(0.5);
+                    dataset.pointBorderColor = randomColor(0.7);
+                    dataset.pointBackgroundColor = randomColor(0.5);
+                    dataset.pointBorderWidth = 1;
+                });
+
+                window.onload = function () {
+                    var ctx = document.getElementById("canvas").getContext("2d");
+                    window.myLine = new Chart(ctx, config);
+                };
+
+    </script>
+
+</div>*@
+
+
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+<script type="text/javascript">
+      google.charts.load('current', {'packages':['corechart']});
+      google.charts.setOnLoadCallback(drawChart);
+
+      function drawChart() {
+    
+          var data = new google.visualization.DataTable();
+     
+          data.addColumn('number', 'Range');
+          data.addColumn('number', 'Efficiency');
+
+          
+
+
+          var chart = new google.visualization.LineChart(document.getElementById('curve_chart'));
+          var options = {
+              title: 'SFPK/ETPK',
+              curveType: 'function',
+              legend: { position: 'bottom' }
+          };
+          var dt1 =  @Html.Raw(Json.Encode(Model.inverter_files_datas.Where(r => r.SFPK / r.ETPK > 0.8 && r.SFPK / r.ETPK < 1).OrderBy(r => r.Serial_No).Select(r => r.Serial_No).ToList()));
+
+
+          var dt2 = @Html.Raw(Json.Encode(Model.inverter_files_datas.Where(r => r.SFPK / r.ETPK > 0.8 && r.SFPK / r.ETPK < 1).OrderBy(r => r.Serial_No).Select(r => r.SFPK / r.ETPK).ToList()));
+          
+          for(i=0;i<dt1.length && i<dt2.length;i++){
+              data.addRows([[dt1[i],dt2[i]*100]]);
+ 
+          }
+
+
+          chart.draw(data, options);
+          
+      }
+    
+</script>
+
+<p>
+
+    @Html.ActionLink("Back to List", "Index")
+</p>

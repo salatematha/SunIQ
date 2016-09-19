@@ -1,0 +1,66 @@
+﻿@model PagedList.IPagedList<SunIQ.Models.Inverter_Files_Data>
+@using PagedList.Mvc;
+<div id="invertid">
+
+    <div class="pagedList" data-sal-target="#invertid">
+        Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+
+        @Html.PagedListPager(Model, page => Url.Action("Index",
+    new { page, searchTerm = ViewBag.CurrentFilter }))
+    </div>
+
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model[0].Inverter.Serial_Number)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model[0].ETUK)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model[0].ETPK)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model[0].STUK)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model[0].STPK)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model[0].SFPK)
+            </th>
+
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Inverter.Serial_Number)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ETUK)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ETPK)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.STUK)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.STPK)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.SFPK)
+                </td>
+
+            </tr>
+        }
+
+    </table>
+    <br />
+
+
+
+
+</div>

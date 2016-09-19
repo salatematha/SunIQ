@@ -1,0 +1,180 @@
+﻿
+
+@{
+    ViewBag.Title = "Home Page";
+}
+<hr />
+<script src="~/Scripts/Chart.bundle.js"></script>
+<script src="~/Scripts/angular.min.js"></script>
+<h2>SunIQ Test Efficiency</h2>
+
+<hr />
+
+
+
+@{
+    var xaxis = new List<string>(ViewBag.xyaxis.Keys);
+    var yaxis = new List<double>(ViewBag.xyaxis.Values);
+}
+
+<div>
+    <div style="width:75%;">
+        <canvas id="canvas"></canvas>
+    </div>
+    <br>
+    <br>
+
+    <script>
+
+        var randomScalingFactor = function () {
+            return Math.round(Math.random() * 100);
+            //return 0;
+        };
+        var randomColorFactor = function () {
+            return Math.round(Math.random() * 255);
+        };
+        var randomColor = function (opacity) {
+            return 'rgba(' + randomColorFactor() + ',' + randomColorFactor() + ',' + randomColorFactor() + ',' + (opacity || '.3') + ')';
+        };
+
+        var config = {
+            type: 'line',
+            data: {
+                labels: @Html.Raw(Json.Encode(xaxis)),
+                datasets: [{
+                    label: "Efficiency",
+                    data: @Html.Raw(Json.Encode(yaxis)),
+                    fill: false,
+                    borderDash: [5, 5],
+                }]
+            },
+            options: {
+                responsive: true,
+                title: {
+                    display: true,
+                    text: 'Efficiency All Inverter'
+                },
+                tooltips: {
+                    mode: 'label',
+                    callbacks: {
+                        // beforeTitle: function() {
+                        //     return '...beforeTitle';
+                        // },
+                        // afterTitle: function() {
+                        //     return '...afterTitle';
+                        // },
+                        // beforeBody: function() {
+                        //     return '...beforeBody';
+                        // },
+                        // afterBody: function() {
+                        //     return '...afterBody';
+                        // },
+                        // beforeFooter: function() {
+                        //     return '...beforeFooter';
+                        // },
+                        // footer: function() {
+                        //     return 'Footer';
+                        // },
+                        // afterFooter: function() {
+                        //     return '...afterFooter';
+                        // },
+                    }
+                },
+                hover: {
+                    mode: 'dataset'
+                },
+                scales: {
+                    xAxes: [{
+                        display: true,
+
+                        scaleLabel: {
+                            display: true,
+                            labelString: 'Range'
+                        }
+                    }],
+                    yAxes: [{
+                        display: true,
+                        scaleLabel: {
+                            display: true,
+                            labelString: 'Efficiency'
+                        }
+                    }]
+                }
+            }
+        };
+
+        $.each(config.data.datasets, function (i, dataset) {
+            dataset.borderColor = randomColor(0.4);
+            dataset.backgroundColor = randomColor(0.5);
+            dataset.pointBorderColor = randomColor(0.7);
+            dataset.pointBackgroundColor = randomColor(0.5);
+            dataset.pointBorderWidth = 1;
+        });
+
+        window.onload = function () {
+            var ctx = document.getElementById("canvas").getContext("2d");
+            window.myLine = new Chart(ctx, config);
+        };
+
+    </script>
+
+</div>
+<script>
+    (function(){
+        "use strict";
+
+        angular.module("app-mod", []);
+
+        angular.module("app-mod")
+            .controller("appcntr", appcntr);
+
+        function appcntr($http) {
+            var vm =this;
+            vm.name="sal13";
+
+            vm.trips = [];
+
+            $http.get("/Inverter_Files_Data/Test")
+                .then (function(response){
+                    angular.copy(response.data, vm.trips);
+                }, function(){
+
+                }                );
+
+            vm.newTrip = {};
+
+            vm.addTrip = function () {
+                vm.newTrip.created=new Date();
+                vm.trips.push(vm.newTrip);
+                vm.newTrip={};
+            };
+
+        }
+    })();
+</script>
+<div>
+    <div ng-app="app-mod">
+        <div ng-controller="appcntr as ac" class="col-md-12 ">
+            {{ac.name}}
+            <table class="table table-responsive table-striped">
+                <tr ng-repeat="trip in ac.trips">
+                    <td>{{trip.label}}</td>
+                    <td>{{trip.etuk}}</td>
+                    <td><a href="#" class="btn btn-sm btn-primary">Manage</a></td>
+                </tr>
+            </table>
+            <form novalidate name="newTrip" ng-submit="ac.addTrip()">
+                <div class="form-group">
+                    <label for="name">Inverter Name</label>
+                    <input class="form-control" type="text" id="name" name="name" ng-model="ac.newTrip.name" required ng-minlength="5"/>
+                    <span class="text-warning" ng-show="newTrip.name.$error.required">Name is Required</span>
+                    <span class="text-warning " ng-show="newTrip.name.$error.minlength">Name should atleast have 5 chars Length</span>
+                    <div class="form-group">
+                        <br />
+                        <input type="submit" value="Add" class="btn btn-success btn-sm" ng-disabled="newTrip.$invalid"/>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

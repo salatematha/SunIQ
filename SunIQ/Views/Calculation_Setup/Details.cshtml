@@ -1,0 +1,50 @@
+﻿@model SunIQ.Models.Calculation_Setup
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Calculation_Setup</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Setup_Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Setup_Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Rated_Power)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Rated_Power)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Efficiency)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Efficiency)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Efficiency_Plus_Minus)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Efficiency_Plus_Minus)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.CalculationId }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

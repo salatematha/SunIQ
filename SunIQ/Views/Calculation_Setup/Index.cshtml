@@ -1,0 +1,51 @@
+﻿@model IEnumerable<SunIQ.Models.Calculation_Setup>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+</br>
+
+<p>
+    @Html.ActionLink("Add New Setup", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Setup_Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Rated_Power)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Efficiency)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Efficiency_Plus_Minus)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Setup_Name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Rated_Power)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Efficiency)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Efficiency_Plus_Minus)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.CalculationId }) |
+            @*@Html.ActionLink("Details", "Details", new { id=item.CalculationId }) |*@
+            @Html.ActionLink("Delete", "Delete", new { id=item.CalculationId })
+        </td>
+    </tr>
+}
+
+</table>

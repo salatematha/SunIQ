@@ -1,0 +1,121 @@
+﻿@model SunIQ.Models.InverterandRange
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<br />
+
+<p>
+    @Html.ActionLink("Add New Test File", "Create")
+</p>
+
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.inv.FirstOrDefault().Serial_Number)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.inv.FirstOrDefault().File_Name)
+        </th>
+        @*<th>
+                @Html.DisplayNameFor(model => model.inv.FirstOrDefault().Last_Modified)
+            </th>*@
+        @*<th>
+                No of Rows
+            </th>*@
+        <th>Nom volt</th>
+        <th>Max Power Tested</th>
+        @foreach (var i in Model.calc.Setup_percentage_Ranges)
+        {
+            <th>
+                @Html.DisplayFor(modelItem => i.Percentage)%
+            </th>
+        }
+
+        <th>Cec%</th>
+        <th>
+
+        </th>
+        <th></th>
+        @*<th></th>*@
+    </tr>
+
+    @foreach (var item in Model.inv)
+    {
+        var lces = 0.0;
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Serial_Number)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.File_Name)
+            </td>
+            @*<td>
+                    @Html.DisplayFor(modelItem => item.Last_Modified)
+                </td>*@
+            @*<td>
+                    @Html.DisplayFor(modelItem => item.inverter_files_datas.Count)
+                </td>*@
+            <td>
+                @try
+                {
+
+                    var nv = Math.Round(item.inverter_files_datas.
+                                 Where(i => i.Serial_No == 48781
+                                 || i.Serial_No == 50706
+                                 || i.Serial_No == 52631
+                                 || i.Serial_No == 54556
+                                 || i.Serial_No == 56481
+                                 || i.Serial_No == 58406
+                             ).Average(stup => stup.STUK), 2);
+                    @nv
+                }
+                catch (Exception e) { }
+
+            </td>
+            <td>
+                @try
+                { @Math.Round(item.inverter_files_datas.Max(a => a.ETPK) / 100000, 2);
+                }
+                catch (Exception e) { }
+            </td>
+            @foreach (var j in Model.calc.Setup_percentage_Ranges)
+            {
+                <td>
+                    @try
+                    {
+
+                        var jcec = Math.Round(item.inverter_files_datas.
+                                Where(i => i.ETUK > (Model.calc.Efficiency - Model.calc.Efficiency_Plus_Minus)
+                                && i.ETUK < (Model.calc.Efficiency + Model.calc.Efficiency_Plus_Minus)
+                                && i.STPK > (Model.calc.Rated_Power * j.Min_Percentage_Range / 100)
+                                && i.STPK < (Model.calc.Rated_Power * j.Max_Percentage_Range / 100)
+                            ).Average(avg => avg.SFPK / avg.ETPK * 100), 2);
+                        lces = lces + jcec * j.Weightage;
+
+                        @jcec
+                    }
+                    catch (Exception e) { }
+                </td>
+            }
+
+            <td>@Math.Round(lces, 2)</td>
+            <td></td>
+            <td>
+                @*@Html.ActionLink("Edit", "Edit", new { id=item.InverterId }) |*@
+                @Html.ActionLink("Details", "Details", new { id=item.InverterId }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.InverterId }) 
+                @*@Html.ActionLink("Delete", "Delete", new { id = item.InverterId }, new { @class = "btn btn-default btn-xs", @onClick = "if (this.innerHTML=='Confirm'){return true;} else {this.className='btn btn-danger btn-xs';this.innerHTML='Confirm';document.getElementById('id" + @item.InverterId + "').style.display = 'block';return false;}" })*@
+                @*@Html.ActionLink("Delete", "Delete", new { id = item.InverterId }, new { @id = "del" + @item.InverterId, @onClick = "if (this.innerHTML=='Confirm'){return true;} else {this.innerHTML='Confirm';document.getElementById('id" + @item.InverterId + "').style.display = 'block';return false;}" })*@
+
+            </td>
+            @*<td>*@
+                @*@Html.ActionLink("Cancel", "", "", new { @class = "btn btn-default btn-xs", @id = "id" + @item.InverterId, @style = "display:none;" })*@
+                @*@Html.ActionLink("Cancel", "", "", new {  @id = "id" + @item.InverterId, @style = "display:none;" , @onClick = "this.style.display = 'none';document.getElementById('del" + @item.InverterId + "').innerHTML = 'Delete';return false;" })*@
+            @*</td>*@
+        </tr>
+    }
+
+</table>

@@ -1,0 +1,72 @@
+﻿@model SunIQ.Models.Inverter_Files_Data
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>Inverter_Files_Data</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Inverter.Serial_Number)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Inverter.Serial_Number)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ETUK)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ETUK)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ETPK)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ETPK)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.STUK)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.STUK)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.STPK)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.STPK)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.SFPK)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SFPK)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-default" /> |
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+    }
+</div>

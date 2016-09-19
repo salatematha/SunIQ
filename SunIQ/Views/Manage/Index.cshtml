@@ -1,0 +1,15 @@
+﻿@model IdentitySample.Models.IndexViewModel
+@{
+    ViewBag.Title = "Manage your account";
+}
+
+<h2>@ViewBag.Title.</h2>
+<p class="text-success">@ViewBag.StatusMessage</p>
+<div class="row">
+    <div class="col-md-8">
+        <p class="">
+<a href="/Manage/ChangePassword">Change your password</a>        </p>
+        <p class=""><br></p><form method="post" action="/Manage/RememberBrowser">
+            </form>
+    </div>
+</div>

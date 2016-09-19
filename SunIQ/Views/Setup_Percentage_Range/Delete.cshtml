@@ -1,0 +1,66 @@
+﻿@model SunIQ.Models.Setup_Percentage_Range
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<br />
+
+<h4>Are you sure you want to delete @Html.DisplayFor(model => model.Percentage)% range for @Html.DisplayFor(model => model.Calculation_Setup.Setup_Name)?</h4>
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-actions no-color" >
+        <input type="submit" value="Delete" class="btn btn-danger" /> |
+        @Html.ActionLink("Back to List", "Index")
+    </div>
+}
+<div>
+
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Calculation_Setup.Setup_Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Calculation_Setup.Setup_Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Percentage)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Percentage)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Min_Percentage_Range)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Min_Percentage_Range)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Max_Percentage_Range)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Max_Percentage_Range)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Weightage)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Weightage)
+        </dd>
+
+    </dl>
+
+
+</div>
